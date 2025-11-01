@@ -1,0 +1,158 @@
+import Section-1.4:-Translate-RNA-to-proteins
+
+rna_data = transcription(DNA_seqs_dict)
+
+start_counts, stop_counts = section_3(rna_data)
+
+def section_5(rna_data):
+
+  amino_acid_classifications = {
+      "Nonpolar, Hydrophobic, Alkyl": ["G", "A", "V", "L", "I", "P", "M"],  # Glycine, Alanine, Valine, Leucine, Isoleucine, Proline, Methionine
+      "Nonpolar, Hydrophobic, Aromatic": ["F", "W"],  # Phenylalanine, Tryptophan
+      "Polar, Hydrophilic, Neutral": ["S", "T", "C", "N", "Q", "Y"],  # Serine, Threonine, Cysteine, Asparagine, Glutamine, Tyrosine
+      "Polar, Hydrophilic, Acidic": ["D", "E"],  # Aspartic Acid, Glutamic Acid
+      "Polar, Hydrophilic, Basic": ["K", "R", "H"],  # Lysine, Arginine, Histidine
+  }
+
+  #acids = {}
+  #for classification, value1 in protein_dict.items():
+      #if classification in amino_acid_classifications and amino_acid_classifications[key1] == value1:
+        # print(f"Key '{key1}' from dict1 has a matching value in dict2.")
+
+
+
+  # Create reverse mapping from AA to classification
+  aa_to_class = {}
+  for class_name, aa_list in amino_acid_classifications.items():
+      for aa in aa_list:
+          aa_to_class[aa] = class_name
+
+  # insert code
+  results = {}
+
+  # Process each sequence
+  for name, line in rna_data.items():
+  #divide by 3 until divisible
+      while len(line) % 3 != 0:
+          line = line[:-1]
+
+      # Translate to protein
+      acids = ""
+      for i in range(0, len(line), 3):
+          codon = line[i:i+3].lower()
+          acids += table.get(codon, '?')
+
+  #count amino acids
+      amino_acid_counts = {}
+      for aa in acids:
+          amino_acid_counts[aa] = amino_acid_counts.get(aa, 0) + 1
+
+
+  #start counting categories
+      categories = {
+          "Nonpolar, Hydrophobic, Alkyl": 0,
+          "Nonpolar, Hydrophobic, Aromatic": 0,
+          "Polar, Hydrophilic, Neutral": 0,
+          "Polar, Hydrophilic, Acidic": 0,
+          "Polar, Hydrophilic, Basic": 0,
+          "Error": 0
+
+        }
+
+      for aa in acids:
+          classification = aa_to_class.get(aa)
+          if classification:
+              categories[classification] += 1
+          else:
+              categories["Error"] += 1
+
+
+      results[name] = {
+          "Acids": acids,
+          "AminoAcidCounts": amino_acid_counts,
+          "Categories": categories
+      }
+
+  # Display results
+  for name, result in results.items():
+      print(f"\n{name}")
+      print(f"Protein: {result['Acids']}")
+      print(f"Amino Acid Counts: {result['AminoAcidCounts']}")
+      print(f"Class Counts: {result['Categories']}")
+
+
+
+
+
+
+  # some helpful code for plotting (define variables as appropriate)
+
+
+
+  category_names = [
+      "Nonpolar, Hydrophobic, Alkyl",
+      "Nonpolar, Hydrophobic, Aromatic",
+      "Polar, Hydrophilic, Neutral",
+      "Polar, Hydrophilic, Acidic",
+      "Polar, Hydrophilic, Basic"
+
+  ]
+
+  positions = sorted(results.keys(), key=lambda x: int(x.split('_')[1]))
+
+  #y_values = list(values.values())
+
+  #y_values = list(values.values())
+
+  category_names = [
+      "Nonpolar, Hydrophobic, Alkyl",
+      "Nonpolar, Hydrophobic, Aromatic",
+      "Polar, Hydrophilic, Neutral",
+      "Polar, Hydrophilic, Acidic",
+      "Polar, Hydrophilic, Basic"
+  ]
+
+  #key_to_plot2 = list(position_counts.keys())[0]
+
+  #values2 = position_counts[key_to_plot2]
+
+  #print(len(position_counts[key_to_plot2] )) #debugging
+
+
+  #fig, ax = plt.subplots()
+  #fig, ax = plt.subplots(figsize=(25,5))
+  #x_values = list(values2.keys())
+  #y_values = list(values2.values())
+
+  bar_colors = ['red', 'orange', 'green', 'blue', 'violet' ]
+  #start_values = [start_counts[id] for id in x_labels]
+  #stop_values = [stop_counts[id] for id in x_labels]
+  #x = range(len(x))
+
+  category_counts = {category: [] for category in category_names}
+  for pos in positions:
+    for category in category_names:
+        category_counts[category].append(results[pos]["Categories"][category])
+  bar_width = 0.15  # smaller width for clean side-by-side
+  num_categories = len(category_names)
+  num_positions = len(positions)
+  x = np.arange(num_positions)
+
+  fig, ax = plt.subplots(figsize=(25, 5))
+
+  for i, category in enumerate(category_names):
+      offset = (i - (num_categories - 1) / 2) * bar_width  # centers bars at each position
+      offset_x = x + offset
+      ax.bar(offset_x, category_counts[category], width=bar_width, label=category, color=bar_colors[i])
+
+  ax.set_xlabel("Sequenece Number", size=10)
+  ax.set_ylabel("Number of Amino Acids", size=10)
+  ax.set_title("Amount of amino acids per class as a function of sequence number", size=12)
+  ax.set_xticks(x)
+  ax.set_xticklabels(positions, rotation=360)
+  ax.legend()
+  plt.tight_layout()
+  plt.show()
+
+  return results
+section_5(rna_data) 
