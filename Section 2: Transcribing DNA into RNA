@@ -1,0 +1,39 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+from collections import Counter
+import pandas as pd 
+
+#Start by loading your DNA sequences here: 
+#10 example DNA sequences are inputted here 
+DNA_seqs_dict = {'seq_1': 'gtcttactctttgtgttcacggctcccctcccacctcgcaccctaatctg',
+'seq_2': 'ctcagccattaaattaataggctaaacgacgctgttgtaatagcacgtga',
+'seq_3': 'aatttcccgcctccttcacacagggatcgcactgcgcccaagtgagctcc',
+'seq_4': 'cgagattagcggaaaccgaaaaagatgtgccgttacagtaaaggcgcccc',
+'seq_5': 'accaaagcatgtattgtacactaggaacccactacagaagcccaaagttc',
+'seq_6': 'gcagtcgcatgcgccctgcactagccctgctaacggccgagaaatgccgg',
+'seq_7': 'cagcatatgccgggacctcagcctgcaatatgacaaaatagtccatttta',
+'seq_8': 'gggaattcccttaacccttggcgtgctagggttttatcttagtcggaaac',
+'seq_9': 'caaatggccgcagtagcagacccagacccaccacgaaggctgcgcgcgat',
+'seq_10': 'attacacccccgcgtgtttgctttgtctacttatggaccgcggtctcagg'}  
+
+def transcription(DNA_seqs_dict):
+
+  RNA_dict = {}
+  trans_table = str.maketrans('atgc', 'uacg')
+
+  for name, DNA in DNA_seqs_dict.items():
+    RNA = DNA.lower().translate(trans_table)
+    #RNA = DNA.replace('a', 'u'; 't', 'a'; 'g', 'c'; 'c', 'g')
+    #RNA = DNA.replace('a', 'u'
+    #RNA1 = DNA.replace('t', 'a')
+    #RNA2 = DNA.replace('g', 'c')
+    #RNA3 = DNA.replace('c', 'g')
+
+
+    RNA_dict[name] = RNA
+
+  return RNA_dict
+
+rna_data = transcription(DNA_seqs_dict)
+print("RNA:", rna_data) 
