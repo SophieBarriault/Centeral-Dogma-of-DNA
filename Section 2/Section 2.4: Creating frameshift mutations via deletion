@@ -1,0 +1,26 @@
+import Section-2.1:-Generating-more-sequences 
+
+def delete (DNA_dict):
+
+  new_DNA_dict = {}
+
+  for key, value in DNA_dict.items():
+      if isinstance(value, str):
+
+        #DNA = ['A', 'G', 'T', 'C']
+        #random_letter = random.choice(DNA)
+
+          # Determine a random insertion position
+        delete_position = random.randint(0, len(DNA_dict) - 1)
+
+            # Insert the letter into the string
+        modified_string = value[:delete_position] + value[delete_position + 1:]
+        new_DNA_dict[key] = modified_string
+      else:
+
+        print("Error")
+
+  return new_DNA_dict
+
+
+delete(DNA_dict) 
