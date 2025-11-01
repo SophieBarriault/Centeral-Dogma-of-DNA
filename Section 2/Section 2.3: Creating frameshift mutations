@@ -1,0 +1,26 @@
+import Section-2.1:-Generating-more-sequences 
+
+def insert(DNA_dict):
+
+  new_DNA_dict = {}
+
+  for key, value in DNA_dict.items():
+      if isinstance(value, str):
+
+        DNA = ['A', 'G', 'T', 'C']
+        random_letter = random.choice(DNA)
+
+          # Determine a random insertion position
+        insert_position = random.randint(0, len(value))
+
+            # Insert the letter into the string
+        modified_value = value[:insert_position] + random_letter + value[insert_position:]
+        new_DNA_dict[key] = modified_value
+      else:
+
+        print("Error")
+
+  return new_DNA_dict
+
+
+insert(DNA_dict) 
