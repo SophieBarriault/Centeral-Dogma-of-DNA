@@ -1,0 +1,134 @@
+import Section-2.6:-Original-and-mutated-sequences-to-RNA,-to-proteins
+
+rna_data = transcription(DNA_dict)
+rna_data2 = transcription(DNA1)
+rna_data3 = transcription(DNA2)
+rna_data4 = transcription(DNA3)
+
+# start_counts, stop_counts = section_3(rna_data)
+
+def section_5(rna_data):
+
+  amino_acid_classifications = {
+      "Nonpolar, Hydrophobic, Alkyl": ["G", "A", "V", "L", "I", "P", "M"],  # Glycine, Alanine, Valine, Leucine, Isoleucine, Proline, Methionine
+      "Nonpolar, Hydrophobic, Aromatic": ["F", "W"],  # Phenylalanine, Tryptophan
+      "Polar, Hydrophilic, Neutral": ["S", "T", "C", "N", "Q", "Y"],  # Serine, Threonine, Cysteine, Asparagine, Glutamine, Tyrosine
+      "Polar, Hydrophilic, Acidic": ["D", "E"],  # Aspartic Acid, Glutamic Acid
+      "Polar, Hydrophilic, Basic": ["K", "R", "H"],  # Lysine, Arginine, Histidine
+  }
+
+  #acids = {}
+  #for classification, value1 in protein_dict.items():
+      #if classification in amino_acid_classifications and amino_acid_classifications[key1] == value1:
+        # print(f"Key '{key1}' from dict1 has a matching value in dict2.")
+
+
+
+  # Create reverse mapping from AA to classification
+  aa_to_class = {}
+  for class_name, aa_list in amino_acid_classifications.items():
+      for aa in aa_list:
+          aa_to_class[aa] = class_name
+
+  # insert code
+  results = {}
+
+  # Process each sequence
+  for name, line in rna_data.items():
+  #divide by 3 until divisible
+      while len(line) % 3 != 0:
+          line = line[:-1]
+
+      # Translate to protein
+      acids = ""
+      for i in range(0, len(line), 3):
+          codon = line[i:i+3].lower()
+          codon_table = {
+      'AUA':'I', 'AUC':'I', 'AUU':'I', 'AUG':'M',
+      'ACA':'T', 'ACC':'T', 'ACG':'T', 'ACU':'T',
+      'AAC':'N', 'AAU':'N', 'AAA':'K', 'AAG':'K',
+      'AGC':'S', 'AGU':'S', 'AGA':'R', 'AGG':'R',
+      'CUA':'L', 'CUC':'L', 'CUG':'L', 'CUU':'L',
+      'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCU':'P',
+      'CAC':'H', 'CAU':'H', 'CAA':'Q', 'CAG':'Q',
+      'CGA':'R', 'CGC':'R', 'CGG':'R', 'CGU':'R',
+      'GUA':'V', 'GUC':'V', 'GUG':'V', 'GUU':'V',
+      'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCU':'A',
+      'GAC':'D', 'GAU':'D', 'GAA':'E', 'GAG':'E',
+      'GGA':'G', 'GGC':'G', 'GGG':'G', 'GGU':'G',
+      'UCA':'S', 'UCC':'S', 'UCG':'S', 'UCU':'S',
+      'UUC':'F', 'UUU':'F', 'UUA':'L', 'UUG':'L',
+      'UGC':'C', 'UGU':'C', 'UGA':'*', 'UGG':'W',
+      'UAU':'Y', 'UAC':'Y', 'UAA':'*', 'UAG':'*'
+  }
+          table =  {k.lower(): v for k, v in codon_table.items()}
+          acids += table.get(codon, '?')
+
+  #count amino acids
+      amino_acid_counts = {}
+      for aa in acids:
+          amino_acid_counts[aa] = amino_acid_counts.get(aa, 0) + 1
+
+
+  #start counting categories
+      categories = {
+          "Nonpolar, Hydrophobic, Alkyl": 0,
+          "Nonpolar, Hydrophobic, Aromatic": 0,
+          "Polar, Hydrophilic, Neutral": 0,
+          "Polar, Hydrophilic, Acidic": 0,
+          "Polar, Hydrophilic, Basic": 0,
+          "Error": 0
+
+        }
+
+      for aa in acids:
+          classification = aa_to_class.get(aa)
+          if classification:
+              categories[classification] += 1
+          else:
+              categories["Error"] += 1
+
+
+      results[name] = {
+          "Acids": acids,
+          "AminoAcidCounts": amino_acid_counts,
+          "Categories": categories
+      }
+
+  # Display results
+  for name, result in results.items():
+      print(f"\n{name}")
+      print(f"Protein: {result['Acids']}")
+      print(f"Amino Acid Counts: {result['AminoAcidCounts']}")
+      print(f"Class Counts: {result['Categories']}")
+
+  return results
+
+BOLD = "\033[1m"
+END = "\033[0m"
+
+print(BOLD + "\033[43mOriginal Sequence Amino Acids:\033[43m" + END )
+section_5(rna_data)
+print()
+print(BOLD + "\033[43mInsert Frame Shift Mutation Amino Acids:\033[43m" + END)
+section_5(rna_data2)
+print()
+print(BOLD + "\033[43mDelete Frame Shift Mutation Amino Acids:\033[43m" + END)
+section_5(rna_data3)
+print()
+print(BOLD + "\033[43mPoint Mutation Amino Acids:\033[43m" + END)
+section_5(rna_data4)
+print()
+
+
+thing_1 = section_5(rna_data)
+thing_2 = section_5(rna_data2)
+thing_3 = section_5(rna_data3)
+thing_4 = section_5(rna_data4)
+
+if thing_1 == thing_2 == thing_3 == thing_4:
+  print("No, the amino acids have not been altered. ")
+else:
+  print("Yes, the amino acids have been altered.")
+
+print("If the number of mutations per sequence increase, the amino acids would be altered even more than they already are. They would affect the protein structure by changing the protein structure, due to them changing the types of amino acids used in the creation of the protein, meaning that the protein created would not longer have the original function that it was originally intended to without the mutation, as the proteins function, which is now changed, determines it's function.") 
