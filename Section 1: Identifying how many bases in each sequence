@@ -1,0 +1,57 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+from collections import Counter
+import pandas as pd 
+
+#first, start by loading your DNA sequences here: 
+#10 example DNA sequences are inputted here 
+DNA_seqs_dict = {'seq_1': 'gtcttactctttgtgttcacggctcccctcccacctcgcaccctaatctg',
+'seq_2': 'ctcagccattaaattaataggctaaacgacgctgttgtaatagcacgtga',
+'seq_3': 'aatttcccgcctccttcacacagggatcgcactgcgcccaagtgagctcc',
+'seq_4': 'cgagattagcggaaaccgaaaaagatgtgccgttacagtaaaggcgcccc',
+'seq_5': 'accaaagcatgtattgtacactaggaacccactacagaagcccaaagttc',
+'seq_6': 'gcagtcgcatgcgccctgcactagccctgctaacggccgagaaatgccgg',
+'seq_7': 'cagcatatgccgggacctcagcctgcaatatgacaaaatagtccatttta',
+'seq_8': 'gggaattcccttaacccttggcgtgctagggttttatcttagtcggaaac',
+'seq_9': 'caaatggccgcagtagcagacccagacccaccacgaaggctgcgcgcgat',
+'seq_10': 'attacacccccgcgtgtttgctttgtctacttatggaccgcggtctcagg'}  
+
+def section_1(DNA_seqs_dict):
+  bases = {}
+  for name, sequence in DNA_seqs_dict.items():
+      base_counts = Counter(sequence.upper())  # Convert to uppercase to handle mixed case
+      bases[name] = {base: base_counts.get(base, 0) for base in "ATGC"}
+
+  print(bases)
+
+  #df = pd.DataFrame.from_dict(bases, orient='index')
+
+  #key_to_plot = 'seq_8'
+
+  key_to_plot = list(bases.keys())[0]
+
+  values = bases[key_to_plot]
+
+
+
+
+  # some helpful code for plotting (define variables as appropriate)
+  fig, ax = plt.subplots()
+  x_label = "Base type"
+  y_label = "Number of bases"
+  #title = "Number of bases as a function of base type (Sequence 8)"
+  title = f"Number of bases as a function of base type ({key_to_plot})"
+  x_values = list(values.keys())
+  y_values = list(values.values())
+  ax.bar(x_values, y_values)
+  ax.set_xlabel(x_label, size=10)
+  ax.set_ylabel(y_label, size=10)
+  ax.set_title(title, size=12)
+  plt.tight_layout()
+  plt.show()
+
+section_1(DNA_seqs_dict) 
+
+
+
