@@ -1,0 +1,26 @@
+import Section-2.1:-Generating-more-sequences 
+
+def change(DNA_dict):
+
+  new_DNA_dict = {}
+
+  for key, value in DNA_dict.items():
+      if isinstance(value, str):
+
+        DNA = ['A', 'G', 'T', 'C']
+        random_letter = random.choice(DNA)
+        random_index = random.randrange(len(value))
+
+          # Determine a random insertion position
+        insert_position = random.randint(0, len(value))
+        new_value = list(value) # Convert to list for mutability
+        new_value[random_index] = random_letter
+        new_DNA_dict[key] = "".join(new_value)
+      else:
+
+        print("Error")
+
+  return new_DNA_dict
+
+
+change(DNA_dict) 
