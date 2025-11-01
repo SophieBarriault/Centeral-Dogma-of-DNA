@@ -1,0 +1,125 @@
+import Section-2.1:-Generating-more-sequences 
+import Section-2.2:-Creating-random-point-mutations
+import Section-2.3:-Creating-frameshift-mutations-via-insertion 
+import Section-2.4:-Creating-frameshift-mutations-via-deletion 
+
+DNA1 = insert(DNA_dict)
+DNA2 = delete(DNA_dict)
+DNA3 = change(DNA_dict)
+
+
+
+def transcription(DNA_seqs_dict):
+
+  RNA_dict = {}
+  trans_table = str.maketrans('ATGC', 'UACG')
+
+  for name, DNA in DNA_seqs_dict.items():
+    RNA = DNA.upper().translate(trans_table)
+    #RNA = DNA.replace('a', 'u'; 't', 'a'; 'g', 'c'; 'c', 'g')
+    #RNA = DNA.replace('a', 'u'
+    #RNA1 = DNA.replace('t', 'a')
+    #RNA2 = DNA.replace('g', 'c')
+    #RNA3 = DNA.replace('c', 'g')
+
+
+    RNA_dict[name] = RNA
+
+  return RNA_dict
+
+rna_data = transcription(DNA_dict)
+rna_data2 = transcription(DNA1)
+rna_data3 = transcription(DNA2)
+rna_data4 = transcription(DNA3)
+print("RNA, Original Seqeunces:", rna_data)
+print("RNA, Insert Shift Mutation:", rna_data2)
+print("RNA, Delete Shift Mutation:", rna_data3)
+print("RNA, Point Mutation:", rna_data4)
+
+rna_data = transcription(DNA_dict)
+rna_data2 = transcription(DNA1)
+rna_data3 = transcription(DNA2)
+rna_data4 = transcription(DNA3)
+
+def section_3 (rna_data):
+
+
+  # define start and stop codons
+  start_codons = [each.lower() for each in ['AUG']]
+  stop_codons = [each.lower() for each in ['UGA', 'UAA', 'UAG']] 
+
+  startcodon_positions = {}
+  stopcodon_positions = {}
+  start_counts = {}
+  stop_counts = {}
+
+  for id, sequence in rna_data.items():
+
+    start_count = 0
+
+    sequence = sequence.lower()
+
+    start_position = []
+    stop_position = []
+
+    for codon in start_codons:
+      current_index = 0
+      while current_index < len(sequence):
+              current_index = sequence.find(codon, current_index)
+              if current_index == -1:
+                break
+              start_position.append(current_index)
+              current_index += 1
+              start_count += 1
+
+    stop_count = 0
+
+    for codon in stop_codons:
+        current_index = 0
+        while current_index < len(sequence):
+                current_index = sequence.find(codon, current_index)
+                if current_index == -1:
+                  break
+                stop_position.append(current_index)
+                current_index += 1
+                stop_count += 1
+
+
+
+        startcodon_positions[id] = start_position
+        stopcodon_positions[id] = stop_position
+
+        start_counts[id] = start_count
+        stop_counts[id] = stop_count
+
+      # Print results
+        print(f"Sequence Number: {id}")
+        print(f"  Start codon found ({start_codons}): {start_position}")
+        print(f"  Stop codon(s) found ({stop_codons}): {stop_position}")
+
+
+  return start_counts, stop_counts #not global, but relied on by section 5 and last section
+
+section_3(rna_data)
+section_3(rna_data2)
+section_3(rna_data3)
+section_3(rna_data4)
+
+
+codons1 = section_3(rna_data)
+codons2 = section_3(rna_data2)
+codons3 = section_3(rna_data3)
+codons4 = section_3(rna_data4)
+
+print("Codons, Original Seqeunces:", codons1)
+print("Codons, Insert Shift Mutation:", codons2)
+print("Codons, Delete Shift Mutation:", codons3)
+print("Codons, Point Mutation:", codons4)
+
+
+if codons1 == codons2 == codons3 == codons4:
+  print("No, some start and stop codons have not been altered. No, the reading frame has not been altered.")
+else:
+  print("Yes, some start and stop codons have been altered. Yes, the reading frame has been altered.")
+
+print("The mutations would affect protein synthesis by creating proteins that weren't original supposed to be creating, due  to the mutations changing the codons, and therefore amino acids that make up the proteins.")
