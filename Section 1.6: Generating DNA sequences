@@ -1,0 +1,30 @@
+seq_length = 100
+my_seq = ''.join(np.random.choice(('C','G','T','A'), seq_length ))
+
+print("My sequence:", my_seq)
+
+print("Section 1")
+
+my_dict = {'my_seq':my_seq}
+section_1(my_dict)
+
+print("Section 2")
+
+transcription(my_dict)
+
+rna_data1 = transcription(my_dict)
+
+print("Section 3")
+section_3(rna_data1)
+
+print("Section 4")
+section_4(rna_data1)
+
+start_counts, stop_counts = section_3(rna_data1)
+
+print("Section 5")
+section_5(rna_data1)
+
+results1 = section_5(rna_data1)
+print("Section 6")
+section_6(results1) 
