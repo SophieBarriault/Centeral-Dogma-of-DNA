@@ -1,0 +1,125 @@
+import Section-1.5:-Classifying-amino-acids
+
+results = section_5(rna_data)
+start_counts, stop_counts = section_3(rna_data)
+
+def section_6(results):
+
+
+  amino_acid_classifications = {
+      "Nonpolar, Hydrophobic, Alkyl": ["G", "A", "V", "L", "I", "P", "M"],  # Glycine, Alanine, Valine, Leucine, Isoleucine, Proline, Methionine
+      "Nonpolar, Hydrophobic, Aromatic": ["F", "W"],  # Phenylalanine, Tryptophan
+      "Polar, Hydrophilic, Neutral": ["S", "T", "C", "N", "Q", "Y"],  # Serine, Threonine, Cysteine, Asparagine, Glutamine, Tyrosine
+      "Polar, Hydrophilic, Acidic": ["D", "E"],  # Aspartic Acid, Glutamic Acid
+      "Polar, Hydrophilic, Basic": ["K", "R", "H"],  # Lysine, Arginine, Histidine
+  }
+
+  aa_to_class = {}
+  for class_name, aa_list in amino_acid_classifications.items():
+      for aa in aa_list:
+          aa_to_class[aa] = class_name
+
+  # insert code
+
+  position_counts = {}
+
+
+  for result in results.values():
+
+    acids  = result['Acids']
+    for i, aa in enumerate (acids):
+
+
+      classification = aa_to_class.get(aa, "Error")
+
+  #if not present
+
+      if i not in position_counts:
+        position_counts[i] = {
+
+                  "Nonpolar, Hydrophobic, Alkyl": 0,
+                  "Nonpolar, Hydrophobic, Aromatic": 0,
+                  "Polar, Hydrophilic, Neutral": 0,
+                  "Polar, Hydrophilic, Acidic": 0,
+                  "Polar, Hydrophilic, Basic": 0,
+                  "Error": 0
+        }
+
+  # I don't know why, but I just moved this around until it was out of the if block, but not totally so it stayed under the 2 fors, and it worked, showing results instead of just 0s. Makes sense but stil.
+      position_counts[i][classification] += 1
+
+
+
+  for pos in sorted(position_counts.keys()):
+      print(f"Position {pos + 1}:")
+      for class_name, count in position_counts[pos].items():
+          print(f"{class_name}: {count}")
+
+
+
+    #graph
+
+
+  # some helpful code for plotting (define variables as appropriate)
+
+  positions = sorted(position_counts.keys(), key=lambda x: int(x))
+
+  #y_values = list(values.values())
+
+  category_names = [
+      "Nonpolar, Hydrophobic, Alkyl",
+      "Nonpolar, Hydrophobic, Aromatic",
+      "Polar, Hydrophilic, Neutral",
+      "Polar, Hydrophilic, Acidic",
+      "Polar, Hydrophilic, Basic"
+  ]
+
+  #key_to_plot2 = list(position_counts.keys())[0]
+
+  #values2 = position_counts[key_to_plot2]
+
+  #print(len(position_counts[key_to_plot2] )) #debugging
+
+
+  #fig, ax = plt.subplots()
+  #fig, ax = plt.subplots(figsize=(25,5))
+  #x_values = list(values2.keys())
+  #y_values = list(values2.values())
+
+  bar_colors = ['red', 'orange', 'green', 'blue', 'violet' ]
+  #start_values = [start_counts[id] for id in x_labels]
+  #stop_values = [stop_counts[id] for id in x_labels]
+  #x = range(len(x))
+
+  category_counts = {category: [] for category in category_names}
+  for pos in positions:
+    for category in category_names:
+        category_counts[category].append(position_counts[pos][category])
+  bar_width = 0.15  # smaller width for clean side-by-side
+  num_categories = len(category_names)
+  num_positions = len(positions)
+  x = np.arange(num_positions)
+
+  fig, ax = plt.subplots(figsize=(25, 5))
+
+  for i, category in enumerate(category_names):
+      offset = (i - (num_categories - 1) / 2) * bar_width  # centers bars at each position
+      offset_x = x + offset
+      ax.bar(offset_x, category_counts[category], width=bar_width, label=category, color=bar_colors[i])
+
+  ax.set_xlabel("Sequenece", size=10)
+  ax.set_ylabel("Number of Amino Acids", size=10)
+  ax.set_title("Amount of amino acids per class as a function of sequence number", size=12)
+  ax.set_xticks(x)
+  ax.set_xticklabels([str(p + 1) for p in positions], rotation=0)
+  ax.legend()
+  plt.tight_layout()
+  plt.show()
+
+  #debugging, misshapen, cannot form a shape, for graph issue
+
+  print("Positions:", positions)
+  print("Length of positions:", len(positions))
+
+
+section_6(results) 
