@@ -1,0 +1,128 @@
+import Section-2.1:-Generating-more-sequences 
+import Section-2.2:-Creating-random-point-mutations
+import Section-2.3:-Creating-frameshift-mutations-via-insertion 
+import Section-2.4:-Creating-frameshift-mutations-via-deletion 
+
+DNA1 = insert(DNA_dict)
+DNA2 = delete(DNA_dict)
+DNA3 = change(DNA_dict)
+
+
+def transcription(DNA_seqs_dict):
+
+  RNA_dict = {}
+  trans_table = str.maketrans('ATGC', 'UACG')
+
+  for name, DNA in DNA_seqs_dict.items():
+    RNA = DNA.upper().translate(trans_table)
+    #RNA = DNA.replace('a', 'u'; 't', 'a'; 'g', 'c'; 'c', 'g')
+    #RNA = DNA.replace('a', 'u'
+    #RNA1 = DNA.replace('t', 'a')
+    #RNA2 = DNA.replace('g', 'c')
+    #RNA3 = DNA.replace('c', 'g')
+
+
+    RNA_dict[name] = RNA
+
+  return RNA_dict
+
+rna_data = transcription(DNA_dict)
+rna_data2 = transcription(DNA1)
+rna_data3 = transcription(DNA2)
+rna_data4 = transcription(DNA3)
+print("RNA, Original Seqeunces:", rna_data)
+print("RNA, Insert Shift Mutation:", rna_data2)
+print("RNA, Delete Shift Mutation:", rna_data3)
+print("RNA, Point Mutation:", rna_data4)
+
+
+
+
+rna_data = transcription(DNA_dict)
+rna_data2 = transcription(DNA1)
+rna_data3 = transcription(DNA2)
+rna_data4 = transcription(DNA3)
+
+def section_4 (rna_data):
+
+
+  # define a codon table (stored in a dictionary)
+  codon_table = {
+      'AUA':'I', 'AUC':'I', 'AUU':'I', 'AUG':'M',
+      'ACA':'T', 'ACC':'T', 'ACG':'T', 'ACU':'T',
+      'AAC':'N', 'AAU':'N', 'AAA':'K', 'AAG':'K',
+      'AGC':'S', 'AGU':'S', 'AGA':'R', 'AGG':'R',
+      'CUA':'L', 'CUC':'L', 'CUG':'L', 'CUU':'L',
+      'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCU':'P',
+      'CAC':'H', 'CAU':'H', 'CAA':'Q', 'CAG':'Q',
+      'CGA':'R', 'CGC':'R', 'CGG':'R', 'CGU':'R',
+      'GUA':'V', 'GUC':'V', 'GUG':'V', 'GUU':'V',
+      'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCU':'A',
+      'GAC':'D', 'GAU':'D', 'GAA':'E', 'GAG':'E',
+      'GGA':'G', 'GGC':'G', 'GGG':'G', 'GGU':'G',
+      'UCA':'S', 'UCC':'S', 'UCG':'S', 'UCU':'S',
+      'UUC':'F', 'UUU':'F', 'UUA':'L', 'UUG':'L',
+      'UGC':'C', 'UGU':'C', 'UGA':'*', 'UGG':'W',
+      'UAU':'Y', 'UAC':'Y', 'UAA':'*', 'UAG':'*'
+  }
+
+  table =  {k.upper(): v for k, v in codon_table.items()}
+
+
+  #final_codon_table = {}
+  #for codon, aa in codon_table.items():
+    #final_codon_table[codon.lower()] = aa
+
+  # insert code
+
+
+  #def translation:
+
+  #protein_sequence = []
+  #for i in range(0, len(rna_data), 3):
+  #   protein_sequence.append(codon_table[rna_data[i:i+3]])
+  #print(''.join(protein_sequence))
+
+  protein_dict = {}
+
+  for name, line in rna_data.items():
+    #line = line.lower() #lowercase again
+
+  #move until divisible by 3
+    while len(line) % 3 != 0:
+        line = line[:-1] #remove by 1 until
+
+
+    protein = ""
+    #if len(rna_data) % 3 == 0:
+    for i in range(0, len(line), 3):
+        codon = line[i:i + 3]
+        protein += table.get(codon, '?')  # ? = unknown codon
+    #else:
+        #print("RNA Sequence not divisible by 3")#debugging
+
+    #print(protein)
+
+    print(f"{name}:{protein}")
+
+BOLD = "\033[1m"
+END = "\033[0m"
+
+print(BOLD + "\033[43mOriginal Sequence's Proteins:\033[43m" + END)
+section_4(rna_data)
+print(BOLD + "\033[43mInsert Frame Shift Mutation's Proteins:\033[43m" + END)
+section_4(rna_data2)
+print(BOLD + "\033[43mDelete Frame Shift Mutation's Proteins:\033[43m" + END)
+section_4(rna_data3)
+print(BOLD + "\033[43mPoint Mutation's Proteins:\033[43m" + END)
+section_4(rna_data4)
+
+#proteins = section_4(rna_data)
+#proteins2 = section_4(rna_data2)
+#proteins3 = section_4(rna_data3)
+#proteins4 = section_4(rna_data4)
+
+#print("Proteins, Original Seqeunces:", proteins)
+#print("Proteins, Insert Shift Mutation:", proteins2)
+#print("Proteins, Delete Shift Mutation:", proteins3)
+#print("Proteins, Point Mutation:", proteins4)
