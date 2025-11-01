@@ -1,0 +1,77 @@
+import Section-1.3:-Identifying-Start-and-Stop-Codons
+
+rna_data = transcription(DNA_seqs_dict)
+
+ # define a codon table (stored in a dictionary)
+codon_table = {
+      'AUA':'I', 'AUC':'I', 'AUU':'I', 'AUG':'M',
+      'ACA':'T', 'ACC':'T', 'ACG':'T', 'ACU':'T',
+      'AAC':'N', 'AAU':'N', 'AAA':'K', 'AAG':'K',
+      'AGC':'S', 'AGU':'S', 'AGA':'R', 'AGG':'R',
+      'CUA':'L', 'CUC':'L', 'CUG':'L', 'CUU':'L',
+      'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCU':'P',
+      'CAC':'H', 'CAU':'H', 'CAA':'Q', 'CAG':'Q',
+      'CGA':'R', 'CGC':'R', 'CGG':'R', 'CGU':'R',
+      'GUA':'V', 'GUC':'V', 'GUG':'V', 'GUU':'V',
+      'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCU':'A',
+      'GAC':'D', 'GAU':'D', 'GAA':'E', 'GAG':'E',
+      'GGA':'G', 'GGC':'G', 'GGG':'G', 'GGU':'G',
+      'UCA':'S', 'UCC':'S', 'UCG':'S', 'UCU':'S',
+      'UUC':'F', 'UUU':'F', 'UUA':'L', 'UUG':'L',
+      'UGC':'C', 'UGU':'C', 'UGA':'*', 'UGG':'W',
+      'UAU':'Y', 'UAC':'Y', 'UAA':'*', 'UAG':'*'
+  }
+
+table =  {k.lower(): v for k, v in codon_table.items()}
+
+
+def section_4 (rna_data):
+
+
+  # define a codon table (stored in a dictionary)
+  codon_table = {
+      'AUA':'I', 'AUC':'I', 'AUU':'I', 'AUG':'M',
+      'ACA':'T', 'ACC':'T', 'ACG':'T', 'ACU':'T',
+      'AAC':'N', 'AAU':'N', 'AAA':'K', 'AAG':'K',
+      'AGC':'S', 'AGU':'S', 'AGA':'R', 'AGG':'R',
+      'CUA':'L', 'CUC':'L', 'CUG':'L', 'CUU':'L',
+      'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCU':'P',
+      'CAC':'H', 'CAU':'H', 'CAA':'Q', 'CAG':'Q',
+      'CGA':'R', 'CGC':'R', 'CGG':'R', 'CGU':'R',
+      'GUA':'V', 'GUC':'V', 'GUG':'V', 'GUU':'V',
+      'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCU':'A',
+      'GAC':'D', 'GAU':'D', 'GAA':'E', 'GAG':'E',
+      'GGA':'G', 'GGC':'G', 'GGG':'G', 'GGU':'G',
+      'UCA':'S', 'UCC':'S', 'UCG':'S', 'UCU':'S',
+      'UUC':'F', 'UUU':'F', 'UUA':'L', 'UUG':'L',
+      'UGC':'C', 'UGU':'C', 'UGA':'*', 'UGG':'W',
+      'UAU':'Y', 'UAC':'Y', 'UAA':'*', 'UAG':'*'
+  }
+
+  table =  {k.lower(): v for k, v in codon_table.items()} 
+
+  #def translation: 
+
+  protein_dict = {}
+
+  for name, line in rna_data.items():
+    #line = line.lower() #lowercase again
+
+  #move until divisible by 3
+    while len(line) % 3 != 0:
+        line = line[:-1] #remove by 1 until
+
+
+    protein = ""
+    #if len(rna_data) % 3 == 0:
+    for i in range(0, len(line), 3):
+        codon = line[i:i + 3]
+        protein += table.get(codon, '?')  # ? = unknown codon
+    #else:
+        #print("RNA Sequence not divisible by 3")#debugging
+
+    #print(protein)
+
+    print(f"{name}:{protein}")
+
+section_4(rna_data) 
