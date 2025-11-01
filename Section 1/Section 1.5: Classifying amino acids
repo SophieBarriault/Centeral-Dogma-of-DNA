@@ -12,12 +12,7 @@ def section_5(rna_data):
       "Polar, Hydrophilic, Neutral": ["S", "T", "C", "N", "Q", "Y"],  # Serine, Threonine, Cysteine, Asparagine, Glutamine, Tyrosine
       "Polar, Hydrophilic, Acidic": ["D", "E"],  # Aspartic Acid, Glutamic Acid
       "Polar, Hydrophilic, Basic": ["K", "R", "H"],  # Lysine, Arginine, Histidine
-  }
-
-  #acids = {}
-  #for classification, value1 in protein_dict.items():
-      #if classification in amino_acid_classifications and amino_acid_classifications[key1] == value1:
-        # print(f"Key '{key1}' from dict1 has a matching value in dict2.")
+  } 
 
 
 
